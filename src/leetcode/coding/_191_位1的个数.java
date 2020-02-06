@@ -2,7 +2,7 @@ package leetcode.coding;
 
 public class _191_位1的个数 {
 
-    //解法一，逐位判断，常规饿的解法
+    // 解法一，逐位判断，常规的解法，超出时间限制
     public int hammingWeight(int n) {
         int count = 0;
         while (n != 0) {
