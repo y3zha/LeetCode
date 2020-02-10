@@ -79,7 +79,7 @@ public class _297_二叉树的序列化与反序列化 {
                     //把这个节放进队列
                     queue.offer(child);
                 }
-                //对于null的处理也是一样的，所以null就相当于直接跳过了，如果此时放的是队头的右儿子，那么这个节点ok了，可以pop了
+                //无论是null还是非null的child，只要是右儿子，都要把它父亲弹出
                 if (!isLeftChild) {
                     queue.poll();
                 }
