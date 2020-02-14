@@ -1,5 +1,6 @@
 package leetcode.swordtooffer;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -42,14 +43,14 @@ public class 面试题59_队列的最大值II {
 
         public MaxQueue() {
             queue = new LinkedList<>();
-            deque = new LinkedList<>();
+            deque = new ArrayDeque<>();
         }
 
         public int max_value() {
             if (queue.isEmpty()) {
                 return -1;
             }
-            return deque.peekFirst();
+            return deque.getFirst();
         }
 
         public void push_back(int value) {
@@ -64,7 +65,7 @@ public class 面试题59_队列的最大值II {
             if (queue.isEmpty()) {
                 return -1;
             }
-            if (queue.peek() == deque.peekFirst()) {
+            if (queue.peek().equals(deque.peekFirst())) {       //要用equles
                 deque.pop();
             }
             return queue.poll();
