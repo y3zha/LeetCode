@@ -41,7 +41,7 @@ public class 面试题49_丑数 {
         for (int i = 1; i < n; i++) {
             // 更新数组
             res[i] = Math.min(res[p2] * 2, Math.min(res[p3] * 3, res[p5] * 5));
-            // 移动指针
+            // 移动指针，不能写if else if 这种，要同步增加的
             if (res[i] == res[p2] * 2) p2++;
             if (res[i] == res[p3] * 3) p3++;
             if (res[i] == res[p5] * 5) p5++;

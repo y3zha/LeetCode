@@ -22,7 +22,7 @@ public class 面试题65_不用加减乘除做加法 {
     public int add(int a, int b) {
         while (b != 0) {
             int temp = a ^ b;   //相加各位的值
-            b = (a & b) << 1;   //计算进位的值
+            b = (a & b) << 1;   //计算进位的值 要加括号！ 因为位移优先级更高
             a = temp;   //让a作为temp（相加各位的值的结果），再和b（进位）去异或，就是相加操作，只要进位不为0，这个循环就一直进行下去
         }
         return a;
