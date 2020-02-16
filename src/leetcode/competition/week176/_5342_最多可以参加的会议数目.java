@@ -34,7 +34,8 @@ public class _5342_最多可以参加的会议数目 {
      * 小顶堆里存的是当天可参加的所有会议的结束时间。 很明显，我们只需要选择小顶堆的top会议即可。
      */
     public static int maxEvents2(int[][] events) {
-        Arrays.sort(events, (o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o1[0] - o2[0]);
+        //按照起点排序就好，因为我们要按顺序找
+        Arrays.sort(events, (o1, o2) -> o1[0] - o2[0]);
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         int res = 0, last = 1, i = 0, n = events.length;
         while (i < n || !pq.isEmpty()) {
