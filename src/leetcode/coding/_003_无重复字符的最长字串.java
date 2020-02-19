@@ -1,6 +1,9 @@
 package leetcode.coding;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * 无重复字符的最长字串
@@ -24,4 +27,33 @@ public class _003_无重复字符的最长字串 {
         }
         return max;
     }
+
+    //自己写了一个
+    public static int lengthOfLongestSubstring2(String s) {
+        int n = s.length();
+        char[] sc = s.toCharArray();
+        int i = 0,j = 0;
+        Set<Character> set = new HashSet();
+        int max = 0;
+        int count = 0;
+        for(i = 0;i < n;i++){
+            while(j < n && !set.contains(sc[j])){
+                set.add(sc[j]);
+                j++;
+                count++;
+            }
+            max = Math.max(max,count);
+            //剔除第一个
+            set.remove(sc[i]);
+            count--;
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+        lengthOfLongestSubstring2(s);
+
+    }
+
 }
