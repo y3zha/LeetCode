@@ -39,6 +39,4 @@ public class 递归快排写法1 {
         quickSort(nums, l, p - 1);//排基准元素左边的
         quickSort(nums, p + 1, r);//排序基准元素右边的
     }
-
-
 }
