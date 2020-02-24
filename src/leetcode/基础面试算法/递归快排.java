@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //leetcode 912
-//快排天生尾递归啊，优化尼玛。。
+//快排天生尾递归啊，优化尼玛
 public class 递归快排 {
 
     public List<Integer> sortArray(int[] nums) {
