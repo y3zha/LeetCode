@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 //leetcode 912
 //快排天生尾递归啊，优化尼玛
 public class 递归快排 {
-
     public List<Integer> sortArray(int[] nums) {
         int l = 0, r = nums.length - 1;
         quickSort(nums, l, r);
