@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //leetcode 912
-public class 递归快排写法1 {
+//快排天生尾递归啊，优化尼玛
+public class 递归快排 {
 
     public List<Integer> sortArray(int[] nums) {
         int l = 0, r = nums.length - 1;
@@ -18,6 +19,7 @@ public class 递归快排写法1 {
         if (l >= r) {
             return;
         }
+
         int pivot = nums[l];
         int p = l,q = r;
         while (p < q) {
