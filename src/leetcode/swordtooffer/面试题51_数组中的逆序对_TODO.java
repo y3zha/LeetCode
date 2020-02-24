@@ -7,7 +7,11 @@ import java.util.Map;
 public class 面试题51_数组中的逆序对_TODO {
 
     /**
-     * 归并排序 //TODO
+     * 归并排序
+     *
+     * 举个例子: A=[1,4,6,7,9]  B=[2,3,5,10,13,21].
+     * 在Merge中发现当前i号元素4比2大,那么4的逆序数需要+1,又因6,7,9都排在4后面,那么6,7,9的逆序数也应该+1
+     * 所以总体的逆序数应该加上前半段最后一个位置，也就是mid ，mid-i+1.(如果i号元素比B[j]小（比如4比5小）,无法确定逆序数的变化,不作任何修改).
      */
     int count = 0;
 
@@ -34,7 +38,7 @@ public class 面试题51_数组中的逆序对_TODO {
             if (nums[p] <= nums[q]) {
                 temp[index++] = nums[p++];
             } else {
-                count += q - mid + 1;
+                count += mid - p + 1;   //为什么呢，见注释
                 temp[index++] = nums[q++];
             }
         }
@@ -49,6 +53,8 @@ public class 面试题51_数组中的逆序对_TODO {
             nums[left++] = temp[index++];
         }
     }
+
+
 
     /**
      * 树状数组
