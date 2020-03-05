@@ -22,7 +22,6 @@ public class _765_情侣牵手 {
     |0 3| ... |7 2|...|6 1| 看相对顺序，可以发现这三对构成一个环，只需2次交换
     同理还有其他类型的环构成连通块
 */
-
     public int minSwapsCouples(int[] row) {
         int len = row.length;
         int n = len / 2;    //情侣对数
