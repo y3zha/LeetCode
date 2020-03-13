@@ -51,5 +51,4 @@ public class _887_鸡蛋掉落 {
         return helper(K - 1, T - 1) + helper(K, T - 1);
     }
 
-
 }
