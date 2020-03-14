@@ -10,7 +10,6 @@ public class _889_根据前序和后序遍历构造二叉树 {
         int m = post.length - 1;
         return build(pre, post, 0, n, 0, m);
     }
-
     private TreeNode build(int[] pre, int[] post, int i, int j, int k, int h) {
         if (i > j || k > h) return null;
         TreeNode root = new TreeNode(pre[i]);
