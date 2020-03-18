@@ -46,4 +46,29 @@ public class _337_打家劫舍III {
         int res2 = dfs(node.left) + dfs(node.right);
         return Math.max(res1, res2);
     }
+
+    /**
+     * 树形dp，对于每个根节点，也是只有选和不选两种状态
+     * 所以每个节点都有两种状态
+     */
+
+    //树形dp，两种状态·
+    public int rob2(TreeNode root) {
+        if(root == null) return 0;
+        int[] res = dfs2(root);
+        return Math.max(res[0],res[1]);
+    }
+
+    private int[] dfs2(TreeNode root){
+        if(root == null) return new int[]{0,0};
+        //root不为null，获得其左右子树的结果数组
+        int[] left = dfs2(root.left);
+        int[] right = dfs2(root.right);
+
+        //更新当前root的结果，0位置代表偷，1位置代表不偷
+        int[] res = new int[2];
+        res[0] = left[1]+right[1]+root.val;
+        res[1] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
+        return res;
+    }
 }
