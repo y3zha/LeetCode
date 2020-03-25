@@ -67,7 +67,7 @@ public class _005_最长回文子串 {
         for (int i = 0; i < n; i++) {
             dp[i][i] = true;
         }
-        //要单独处理下相邻的
+        //要单独处理下相邻的，为什么一定要从3开始呢？看下面的
         for (int i = 0; i < n - 1; i++) {
             dp[i][i + 1] = chs[i] == chs[i + 1];
             if (dp[i][i + 1]) {
@@ -75,7 +75,7 @@ public class _005_最长回文子串 {
                 start = i;
             }
         }
-        //长度从3开始
+        //要从3开始，如果不从3开始，那么用例 "cbbd" 就会输出""，把len=2，i=0带进去 j一开始是1，然后 i+1变为1，j-1变为0，这就倒了
         for (int len = 3; len <= n; len++) {
             for (int i = 0; i <= n - len; i++) {
                 int j = i + len - 1;
