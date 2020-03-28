@@ -108,20 +108,20 @@ public class _028_实现strStr {
      *
      */
     private static int[] getNext(String pat) {
-        int j = 0, t = -1, n = pat.length(); //j=1 从第一个字符位置开始
+        int i = 0, j = -1, n = pat.length(); //i=1 从第一个字符位置开始
         int[] next = new int[n];
         next[0] = -1;    //从第一个位置开始
-        while (j < n - 1) {
-            //我们这里是要利用next[j]求next[j+1]
-            //pat.charAt(t)这句意思是，在第j个字符发生不匹配的，t=next[j]，也就是下一个要从哪个位置开始比较
-            //pat.charAt(j)这是第j+1个字符在原来pat串中的位置，
-            //那么就是看这两个字符相不相等，如果第j+1个字符和next[j]位置的这个字符相等，那就是ok的,都往前移动，并设置j+1个自负的失败指针为新的cot
-            if (t == -1 || pat.charAt(j) == pat.charAt(t)) {
+        while (i < n - 1) {
+            //我们这里是要利用next[i]求next[i+1]
+            //pat.charAt(j)这句意思是，在第j个字符发生不匹配的，j=next[i]，也就是下一个要从哪个位置开始比较
+            //pat.charAt(i)这是第j+1个字符在原来pat串中的位置，
+            //那么就是看这两个字符相不相等，如果第j+1个字符和next[i]位置的这个字符相等，那就是ok的,都往前移动，并设置j+1个自负的失败指针为新的cot
+            if (j == -1 || pat.charAt(i) == pat.charAt(j)) {
+                i++;
                 j++;
-                t++;
-                next[j] = t;
+                next[i] = j;
             } else {
-                t = next[t];
+                j = next[j];
             }
         }
         return next;
@@ -133,12 +133,6 @@ public class _028_实现strStr {
         strStr3(txt, pat);
 
     }
-
-
-
-
-
-
 
 
     //rabin karp算法
@@ -184,7 +178,7 @@ public class _028_实现strStr {
             //double check
             if (subStrHash == patHash) {
                 if (txt.subSequence(i - m + 1, i + 1).equals(pat)) {
-                    return i - n + 1;
+                    return i - m + 1;
                 }
             }
         }
