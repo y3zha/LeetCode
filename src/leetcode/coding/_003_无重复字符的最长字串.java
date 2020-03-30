@@ -50,6 +50,7 @@ public class _003_无重复字符的最长字串 {
         return max;
     }
 
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         lengthOfLongestSubstring2(s);
