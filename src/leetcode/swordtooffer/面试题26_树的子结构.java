@@ -19,7 +19,8 @@ public class 面试题26_树的子结构 {
     }
 
     private boolean isSub(TreeNode A, TreeNode B) {
-        if (A == null || B == null) {
+        //node2为null，node1可以有，也可以没有，node1为null，node2必须为null
+        if (A == null) {
             return B == null;
         }
         //值不相等必定不是当前node的子树

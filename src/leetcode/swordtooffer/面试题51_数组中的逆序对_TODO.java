@@ -84,6 +84,7 @@ public class 面试题51_数组中的逆序对_TODO {
         }
     }
 
+    //做完这个做315题
     public int reversePairs2(int[] nums) {
         //离散化
         int n = nums.length;
@@ -108,5 +109,90 @@ public class 面试题51_数组中的逆序对_TODO {
         面试题51_数组中的逆序对_TODO test = new 面试题51_数组中的逆序对_TODO();
         test.reversePairs2(a);
     }
+
+    // 下面的有问题，因为mid - p + 1，比如后半段数组，p其实不为0！，如果设置p为0，就会导致多加了
+    static class Solution {
+        int count;
+        public int reversePairs(int[] nums) {
+            count = 0;
+            mergeSort(nums,0,nums.length - 1);
+            return count;
+        }
+
+        private int[] mergeSort(int[] nums,int left,int right){
+            if(left > right){
+                return new int[]{};
+            }
+            if(left == right){
+                return new int[]{nums[left]};
+            }
+            int mid = left + (right - left) / 2 ;
+            int[] arr1 = mergeSort(nums,left,mid);
+            int[] arr2 = mergeSort(nums,mid + 1,right);
+            // merge
+            int n = arr1.length,m = arr2.length;
+            int[] arr = new int[n + m];
+            int idx = 0,p = 0, q = 0;
+            while(p < n && q < m){
+                if(arr1[p] > arr2[q]){
+                    count += mid - p + 1;
+                    arr[idx++] = arr2[q++];
+                }else{
+                    arr[idx++] = arr1[p++];
+                }
+            }
+            while(p < n) arr[idx++] = arr1[p++];
+            while(q < m) arr[idx++] = arr2[q++];
+            return arr;
+        }
+        public static void main(String[] args) {
+            Solution solution = new Solution();
+            solution.reversePairs(new int[]{7, 5, 6, 4});
+        }
+    }
+
+    //过了的
+    class Solution2 {
+        public int reversePairs(int[] nums) {
+            return mergeSort(nums,0,nums.length - 1);
+        }
+
+        private int mergeSort(int[] nums, int left, int right) {
+            int count = 0;
+            if (left < right) {
+                int mid = left + (right - left) / 2;
+                count = mergeSort(nums, left, mid) + mergeSort(nums, mid + 1, right);
+                //i为前半部分指针，j为后半部分指针
+                int j = mid + 1;
+                //对于前半段任意位置上的数，都要和后面半段的数逐个比较，前后半段已经是排好序的了
+                for (int i = left; i <= mid; i++) {
+                    while (j <= right && nums[i] > nums[j]) {    //防止溢出
+                        j++;
+                    }
+                    count += j - mid - 1;
+                }
+                merge(nums, left, mid, right);
+            }
+            System.out.println(count);
+            return count;
+        }
+
+        //不要再merge的时候统计
+        private void merge(int[] nums, int left, int mid, int right) {
+            int[] temp = new int[right - left + 1];
+            int p = left;   //前半段指针
+            int q = mid + 1;    //后半段指针
+            int index = 0;  //temp的指针
+            while (p <= mid && q <= right) {
+                temp[index++] = nums[p] <= nums[q] ? nums[p++] : nums[q++];
+            }
+            while (p <= mid) temp[index++] = nums[p++];
+            while (q <= right) temp[index++] = nums[q++];
+            System.arraycopy(temp, 0, nums, left, temp.length);
+        }
+
+    }
+
+
 
 }

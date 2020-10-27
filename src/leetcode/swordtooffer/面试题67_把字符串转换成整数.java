@@ -1,7 +1,5 @@
 package leetcode.swordtooffer;
 
-import leetcode.test.Test;
-
 public class 面试题67_把字符串转换成整数 {
 
     public int strToInt(String str) {

@@ -25,6 +25,7 @@ public class 面试题9_用两个栈实现队列 {
             stack2.push(value);
         }
 
+        //出队的时候只要辅助栈不空就从辅助队列里出来就行了，如果辅助栈空了那就要看另一个栈空不空，空的话那就不行了，不空就把另一个栈的元素都放进来呗
         public int deleteHead() {
             if (stack1.isEmpty()) {
                 if (stack2.isEmpty()) {

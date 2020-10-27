@@ -8,6 +8,7 @@ public class 面试题17_打印从1到最大的n位数 {
      */
 
     public int[] printNumbers(int n) {
+        //用快速幂求10的n次方
         int base = 10;
         int temp = 1;
         while (n != 0) {
