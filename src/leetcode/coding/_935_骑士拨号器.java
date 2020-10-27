@@ -42,4 +42,5 @@ public class _935_骑士拨号器 {
         }
         return (int) (res%MOD);
     }
+
 }

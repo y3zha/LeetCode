@@ -1,5 +1,8 @@
 package leetcode.coding;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * 和书本分发那个题一样
  */
@@ -67,6 +70,41 @@ public class _410_分割数组的最大值 {
         return (int)dp[m][n];
     }
 
+
+    public int splitArray3(int[] nums, int m) {
+        int n = nums.length;
+        long[] ps = new long[n + 1];
+        for (int i = 0; i < n; i++) {
+            ps[i + 1] = ps[i] + nums[i];
+        }
+        long[] a = Arrays.copyOf(ps, n + 1);
+        long[] b = Arrays.copyOf(ps, n + 1);
+        for (int i = 2; i <= m; i++) {
+
+            int k = 0;
+            for (int j = 1; j <= nums.length; j++) {
+                while (b[k] < ps[j] - ps[k]) {
+                    k++;
+                }
+                a[j] = Math.min(b[k], ps[j] - ps[k - 1]);
+            }
+            swap(a, b);
+        }
+        return (int) b[n];
+    }
+
+    private static void swap(long[] a, long[] b) {
+        long[] temp = a;
+        a = b;
+        b = temp;
+    }
+
+    public static void main(String[] args) {
+        long[] a = new long[]{1};
+        long[] b = new long[]{2};
+        swap(a, b);
+        System.out.println(a[0]);
+    }
 
 
 }

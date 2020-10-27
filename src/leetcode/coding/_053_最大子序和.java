@@ -26,4 +26,18 @@ public class _053_最大子序和 {
         return res;
     }
 
+    // 方法二：贪心
+
+    // 方法三：前缀和，记录前缀和中最小的即可
+    public int maxSubArray3(int[] nums) {
+        int n = nums.length, sum = 0, min = 0x7fffffff, ans = nums[0];
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            ans = Math.max(ans, sum - min);
+            min = Math.min(min, sum);
+        }
+        return ans;
+    }
+
+
 }

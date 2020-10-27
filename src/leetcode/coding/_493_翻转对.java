@@ -39,7 +39,7 @@ public class _493_翻转对 {
             int j = mid + 1;
             //对于前半段任意位置上的数，都要和后面半段的数逐个比较，前后半段已经是排好序的了
             for (int i = left; i <= mid; i++) {
-                while (j <= right && nums[i] > (long) 2 * nums[j]) {    //放置溢出
+                while (j <= right && nums[i] > (long) 2 * nums[j]) {    //防止溢出
                     j++;
                 }
                 count += j - mid - 1;
@@ -58,19 +58,16 @@ public class _493_翻转对 {
         while (p <= mid && q <= right) {
             temp[index++] = nums[p] <= nums[q] ? nums[p++] : nums[q++];
         }
-        while (p <= mid) {
-            temp[index++] = nums[p++];
-        }
-        while (q <= right) {
-            temp[index++] = nums[q++];
-        }
+        while (p <= mid) temp[index++] = nums[p++];
+        while (q <= right) temp[index++] = nums[q++];
         System.arraycopy(temp, 0, nums, left, temp.length);
     }
 
     /**
      * 树状数组写法
      * 根据题意分析，i < j 且 nums[i] > 2*nums[j]，这个条件我们可以解读为，当前元素后方有多少元素比这个元素的一半还小
-     * 推荐博客 https://blog.csdn.net/gonganDV/article/details/88817416、https://blog.csdn.net/S_999999/article/details/99076076
+     * 推荐博客 https://blog.csdn.net/gonganDV/article/details/88817416、
+     * https://blog.csdn.net/S_999999/article/details/99076076
      *
      *
      * 首先来看下怎么求【逆序对】的！！！！！！！！
@@ -100,7 +97,8 @@ public class _493_翻转对 {
      *
      *
      *【再回到这个题】
-     *      这个题要的是 i < j 且 nums[i] > 2*nums[j] 的翻转对，也就是 对于第 i 个元素 nums[i]，我们希望知道有多少个已经遍历过的元素的两倍仍然小于 nums[i]
+     *      这个题要的是 i < j 且 nums[i] > 2*nums[j] 的翻转对
+     *      也就是 对于第 i 个元素 nums[i]，我们希望知道有多少个已经遍历过的元素的两倍仍然小于 nums[i]
      *      所以从后往前遍历原数组，后面的先插入树状数组，这样就能知道当前元素 后面 大于它两倍的有多少个了
      *
      *      另外，给定的用例有个[10000000,99999999]这样子的，那这里就需要离散化了
@@ -124,7 +122,7 @@ public class _493_翻转对 {
             //树状数组除了更新它自己还要更新它父亲
             while (index <= n) {
                 c[index] += val;
-                index = index + lowbit(index);
+                index += lowbit(index);
             }
         }
 
@@ -143,9 +141,9 @@ public class _493_翻转对 {
         }
     }
 
-    //TODO
     // public int reversePairs2(int[] nums) {
-    //     Map<Long, Integer> map = new TreeMap<>(Collections.reverseOrder());
+    //     // Map<Long, Integer> map = new TreeMap<>(Collections.reverseOrder());
+    //     Map<Long, Integer> map = new TreeMap<>();
     //     for (int num : nums) {
     //         map.put((long) num, 1);
     //         map.put((long) (2 * num + 1), 1);
@@ -155,10 +153,31 @@ public class _493_翻转对 {
     //         map.put(num, rank++);
     //     }
     //     int res = 0;
-    //     BIT bit = new BIT(100100);
+    //     BIT bit = new BIT(nums.length);
     //     for (int i = nums.length - 1; i >= 0; i--) {
     //         res += bit.query(map.get((long) nums[i]));
     //         bit.add(map.get((long) 2 * nums[i] + 1), 1);
+    //     }
+    //     return res;
+    // }
+
+    // public int reversePairs2(int[] nums) {
+    //     int n = nums.length;
+    //     TreeSet<Long> set = new TreeSet<>();
+    //     for (int num : nums) {
+    //         set.add((long) num);
+    //         set.add((long) (2 * num));
+    //     }
+    //     HashMap<Long, Integer> map = new HashMap<>();
+    //     int rank = 0;
+    //     for (Long num : set) {
+    //         map.put(num, ++rank);
+    //     }
+    //     BIT bit = new BIT(n);
+    //     int res = 0;
+    //     for (int i = n - 1; i >= 0; i--) {
+    //         res += bit.query(map.get((long) (nums[i - 1])) - 1);
+    //         bit.add(map.get((long) (2 * nums[i - 1])), 1);
     //     }
     //     return res;
     // }

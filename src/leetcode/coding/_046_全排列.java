@@ -15,7 +15,6 @@ public class _046_全排列 {
         if (nums == null || nums.length == 0) {
             return results;
         }
-        Arrays.sort(nums);
         boolean[] visited = new boolean[nums.length];
         dfs(nums, new ArrayList<Integer>(), results, visited);
         return results;

@@ -1,8 +1,12 @@
 package leetcode.coding;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 到达每个汽车加油站都会获得gas[i]升汽油
- * 从当前位置前往下一个车展都会消耗cost[i]升汽油
+ * 从当前位置前往下一个车站都会消耗cost[i]升汽油
  *
  * 问：能不能环绕一周？能的话返回起点编号，不能则返回-1。（假设题目能的话有唯一解）
  *

@@ -1,6 +1,7 @@
 package leetcode.coding;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class _560_和为K的子数组 {
 
@@ -14,14 +15,14 @@ public class _560_和为K的子数组 {
      */
     public static int subarraySum(int[] nums, int k) {
         int n = nums.length;
-        int[] prefixSum = new int[n + 1];
+        int[] ps = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            prefixSum[i] = nums[i - 1] + prefixSum[i - 1];
+            ps[i] = nums[i - 1] + ps[i - 1];
         }
         int res = 0;;
-        for (int start = 0; start < n; start++) {
-            for (int end = start + 1; end <= n; end++) {
-                if (prefixSum[end] - prefixSum[start] == k) {
+        for (int s = 0; s < n; s++) {
+            for (int e = s + 1; e <= n; e++) {
+                if (ps[e] - ps[s] == k) {
                     res++;
                 }
             }
@@ -29,18 +30,29 @@ public class _560_和为K的子数组 {
         return res;
     }
 
-    public static void main(String[] args) throws IOException {
-        StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
-        st.nextToken();
-        int size = (int) st.nval;
-        int[] a = new int[size];
-        for (int i = 0; i < size; i++) {
-            st.nextToken();
-            a[i] = (int) st.nval;
+    /**
+     * 时间复杂度还是很高
+     * 可以通过Prefix sum来求解。假设我们令P[i] = A[0] + A[1] + ... + A[i-1]和P[j] = A[0] + A[1] + ... + A[j-1]
+     * 那么P[j] - P[i] = A[i] + A[i+1] + ... + A[j-1]。如果P[j] - P[i] == S的话，那么[i,j]就是我们需要的区间。
+     * 所以我们对于每个j，我们只要计算有多少个i使得P[j] - P[i] == S，这样我们就得到了以P[j]作为右区间并且和为S的区间数。
+     * 对于A中的每个元素都做同样的处理，最有将所有的结果相加即可。
+     *
+     * 具体实现上，我们通过hash_map记录P[j]。初始化的时候要注意一个细节，对于dict[0]=1。
+     * 为什么？因为当P[j]==S时，P[i]=0并且此时我们的result=1。
+     */
+
+    public static int subarraySum2(int[] nums, int k) {
+        int res = 0;
+        int curSum = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        for (int i = 0; i < nums.length; i++) {
+            curSum += nums[i];
+            if (map.containsKey(curSum - k)) {
+                res += map.get(curSum - k);
+            }
+            map.put(curSum, map.getOrDefault(curSum, 0) + 1);
         }
-        st.nextToken();
-        int k = (int) st.nval;
-        PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out));
-        pw.print(subarraySum(a, k));
+        return res;
     }
 }

@@ -1,6 +1,7 @@
 package leetcode.coding;
 
 /**
+ * 做个笔记
  * 本质上这个题就是求众数，我们都会用hash表
  * 但是如何做到空间O（1）呢
  * 这里就得用 摩尔投票算法了
@@ -13,6 +14,7 @@ package leetcode.coding;
  *
  * 因为 【通过忽略掉前面的数字，我们忽略掉了同样多数目的众数和非众数，因为如果遗忘更多的非众数，会导致计数器变成负数】
  *
+ * 做完这个题做229！
  */
 public class _169_多数元素 {
 
@@ -27,7 +29,6 @@ public class _169_多数元素 {
             cnt += candidate == i ? 1 : -1;
         }
         return candidate;
-
     }
 
 

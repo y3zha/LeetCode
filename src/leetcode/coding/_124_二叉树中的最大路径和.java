@@ -51,4 +51,47 @@ public class _124_二叉树中的最大路径和 {
         return Math.max(left, right) + node.val;
     }
 
+
+    /**
+     * 实际上就是枚举所有的节点，以该节点作为中继点，就会有一条最大路径和，然后维护一个全局的最大路径和
+     * 分别求出该节点以左子树和右子树为起点的的最大路径和。然后算出以该节点为中继的值来更新全局最大路径和。
+     * 有可能都不选左右两颗子树，因为有可能左右两颗子树是负数，所以有不选的情况。
+     *
+     *
+     */
+
+    /*
+    搞一个类 ResultType 它记录这个节点的 pathSum和全局的max。
+    一开始是从root开始，那么对于root，有包含和不包含两种情况
+    我先去看root的左子树和右子树，得到左右子树的最大路径和（这个是root不作为中继节点的最大路径和，也即是它不作为结果的根的时候）
+    还有种情况是 root 作为左右子树的中继节点（也即是作为整个结果的根的时候），再来更新全局的最大路径和
+    */
+
+    class ResultType {
+        int pathSum = 0x80000000;
+        int maxSum = 0x80000000;
+    }
+
+    public int maxPathSum2(TreeNode root) {
+        return helper(root).maxSum;
+    }
+
+    private ResultType helper(TreeNode root) {
+        ResultType rt = new ResultType();
+        if (root == null) {
+            return rt;
+        }
+        //divide
+        ResultType left = helper(root.left);
+        ResultType right = helper(root.right);
+
+        //更新当前root的rt
+        //情况1：root不作为中继节点（也即是不作为整个结果的根的时候）
+        rt.pathSum = Math.max(Math.max(left.pathSum, right.pathSum), 0) + root.val;
+        //情况2：root作为中继节点，需要更新下全局的最大值,此时left和right肯定不能作为中继节点，所以用的是pathSum
+        int temp = Math.max(left.pathSum, 0) + Math.max(right.pathSum, 0) + root.val;
+        rt.maxSum = Math.max(temp, Math.max(left.maxSum, right.maxSum));  //拿左右子树已经存的maxSum来比比
+        return rt;
+    }
+
 }

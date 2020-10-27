@@ -1,7 +1,5 @@
 package leetcode.coding;
 
-import leetcode.test.Test;
-
 /**
  * 1、KMP算法，见柳神的文章https://leetcode-cn.com/problems/implement-strstr/solution/kmp-suan-fa-xiang-jie-by-labuladong/
  * 2、非常推荐看天勤的视频！很好动KMP
@@ -9,7 +7,7 @@ import leetcode.test.Test;
  */
 public class _028_实现strStr {
 
-    //labuladong的kmp算法
+    //labuladong的kmp算法？
     public int strStr(String txt, String pat) {
         //如果模式串是空串，直接return 0
         if (pat.length() == 0) {

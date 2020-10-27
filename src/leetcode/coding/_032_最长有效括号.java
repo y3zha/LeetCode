@@ -1,5 +1,7 @@
 package leetcode.coding;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -21,13 +23,12 @@ public class _032_最长有效括号 {
         int n = s.length();
         char[] sc = s.toCharArray();
         int[] dp = new int[n + 1];
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> stack = new LinkedList<>();
 
         int max = 0;
         for (int i = 1; i <= n; i++) {
             if (sc[i - 1] == '(') {
                 stack.push('(');
-                continue;
             } else {
                 if (!stack.isEmpty()) {
                     stack.pop();
